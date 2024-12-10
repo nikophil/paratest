@@ -762,21 +762,6 @@ EOF;
         self::assertEquals(RunnerInterface::SUCCESS_EXIT, $runnerResult->exitCode);
     }
 
-    /**
-     * ###   WARNING   ###
-     *
-     * This test MUST be the last of this file,
-     * otherwise the next one will always fail
-     */
-    public function testProcessIsolation(): void
-    {
-        $this->bareOptions['path']                = $this->fixture('process_isolation' . DIRECTORY_SEPARATOR . 'FooTest.php');
-        $this->bareOptions['--process-isolation'] = true;
-
-        $runnerResult = $this->runRunner();
-        self::assertSame(RunnerInterface::SUCCESS_EXIT, $runnerResult->exitCode);
-    }
-
     public function testExtensionMustRunBeforeDataProvider(): void
     {
         $this->bareOptions['--configuration'] = $this->fixture('extension_run_before_data_provider' . DIRECTORY_SEPARATOR . 'phpunit.xml');
@@ -796,6 +781,21 @@ OK%a
 EOF;
         self::assertStringMatchesFormat($expectedOutput, $runnerResult->output);
         self::assertEquals(RunnerInterface::SUCCESS_EXIT, $runnerResult->exitCode);
+    }
+
+    /**
+     * ###   WARNING   ###
+     *
+     * This test MUST be the last of this file,
+     * otherwise the next one will always fail
+     */
+    public function testProcessIsolation(): void
+    {
+        $this->bareOptions['path']                = $this->fixture('process_isolation' . DIRECTORY_SEPARATOR . 'FooTest.php');
+        $this->bareOptions['--process-isolation'] = true;
+
+        $runnerResult = $this->runRunner();
+        self::assertSame(RunnerInterface::SUCCESS_EXIT, $runnerResult->exitCode);
     }
 
     private static function sorted(string $from): string
